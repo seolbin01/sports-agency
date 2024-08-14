@@ -32,6 +32,15 @@ public class PlayerRepository {
 
     }
 
+    public Player selectPlayerByNo(int no) {
+        for (Player player : playerList){
+            if(player.getNo() == no){
+                return player;
+            }
+        }
+        return null;
+    }
+
     private void loadPlayers(File file) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 

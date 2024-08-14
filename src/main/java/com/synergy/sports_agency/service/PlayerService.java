@@ -16,4 +16,16 @@ public class PlayerService {
             System.out.println("Player : " + player);
         }
     }
+
+    public void findPlayerByNo(int no) {
+        Player selectedPlayer = playRepository.selectPlayerByNo(no);
+
+        if(selectedPlayer != null) {
+            System.out.println(selectedPlayer);
+        }else{
+            System.out.println("해당 번호를 가진 선수는 없습니다");
+        }
+    }
+
+
 }
