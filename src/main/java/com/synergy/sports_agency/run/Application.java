@@ -23,7 +23,7 @@ public class Application {
 
             switch (choice) {
                 case 1: playerService.findAllPlayer();break;
-                case 2: break;
+                case 2: playerService.findPlayerByNo(chooseNo()); break;
                 case 3: break;
                 case 4: break;
                 case 5: break;
@@ -34,5 +34,11 @@ public class Application {
                     System.out.println("번호를 잘못 입력했습니다.");
             }
         }
+    }
+
+    private static int chooseNo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("선수 번호 입력 : ");
+        return scanner.nextInt();
     }
 }
