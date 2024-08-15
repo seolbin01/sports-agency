@@ -41,4 +41,36 @@ public class PlayerService {
 
 
     }
+
+    public Player findPlayerForModify(int no) {
+        Player selectedPlayer = playRepository.selectPlayerByNo(no);
+
+        if(selectedPlayer != null) {
+            Player newInstance = new Player();
+            newInstance.setNo(selectedPlayer.getNo());
+            newInstance.setName(selectedPlayer.getName());
+            newInstance.setHeight(selectedPlayer.getHeight());
+            newInstance.setWeight(selectedPlayer.getWeight());
+            newInstance.setAge(selectedPlayer.getAge());
+            newInstance.setCategory(selectedPlayer.getCategory());
+            newInstance.setInjury(selectedPlayer.getInjury());
+            newInstance.setSalary(selectedPlayer.getSalary());
+            newInstance.setGrade(selectedPlayer.getGrade());
+            return newInstance;
+
+        }
+        System.out.println("입력하신 선수 번호에 해당하는 선수 없습니다");
+        return null;
+    }
+
+    public void modifyPlayer(Player player) {
+        int result = playRepository.updatePlayer(player);
+
+        if(result == 1) {
+            System.out.println("선수 정보 수정이 완료되었습니다 ");
+        } else{
+            System.out.println("입력하신 선수 번호에 해당하는 선수가 없습니다  ");
+        }
+
+    }
 }
