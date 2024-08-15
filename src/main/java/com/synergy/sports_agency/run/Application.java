@@ -34,7 +34,7 @@ public class Application {
                     break;
                 case 5: playerService.removePlayer(chooseNo()); break;
                 case 9:
-                    System.out.println("회원 관리 프로그램을 종료합니다.");
+                    System.out.println("선수 관리 프로그램을 종료합니다.");
                     return;
                 default:
                     System.out.println("번호를 잘못 입력했습니다.");
