@@ -1,5 +1,7 @@
 package com.synergy.sports_agency.run;
 
+import com.synergy.sports_agency.aggregate.Grade;
+import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.service.PlayerService;
 
 import java.util.Scanner;
@@ -24,7 +26,7 @@ public class Application {
             switch (choice) {
                 case 1: playerService.findAllPlayer();break;
                 case 2: playerService.findPlayerByNo(chooseNo()); break;
-                case 3: break;
+                case 3: playerService.registPlayer(signUp()); break;
                 case 4: break;
                 case 5: break;
                 case 9:
@@ -34,6 +36,55 @@ public class Application {
                     System.out.println("번호를 잘못 입력했습니다.");
             }
         }
+    }
+
+    private static Player signUp() {
+        Player newPlayer = null;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("선수명을 입력하세요: ");
+        String name = sc.nextLine();
+
+        System.out.println("신장을 입력하세요: ");
+        double height = sc.nextDouble();
+
+        System.out.println("체중을 입력하세요: ");
+        double weight = sc.nextDouble();
+
+        System.out.println("나이을 입력하세요: ");
+        int age = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.println("종목을 입력하세요: ");
+        String category = sc.nextLine();
+
+        System.out.println("부상을 입력하세요: ");
+        String injury = sc.nextLine();
+
+        System.out.println("연봉을 입력하세요: ");
+        int salary = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.print("실력을 입력하세요(S, A, B, C, D, E): ");
+        String gradeType = sc.nextLine();
+        Grade gt = switch (gradeType) {
+            case "S" -> Grade.S;
+            case "A" -> Grade.A;
+            case "B" -> Grade.B;
+            case "C" -> Grade.C;
+            case "D" -> Grade.D;
+            case "E" -> Grade.E;
+
+            default -> null;
+        };
+
+        newPlayer = new Player(name, height, weight, age, category, injury, salary);
+
+        newPlayer.setGrade(gt);
+
+        return newPlayer;
     }
 
     private static int chooseNo() {

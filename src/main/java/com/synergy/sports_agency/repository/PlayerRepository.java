@@ -2,6 +2,7 @@ package com.synergy.sports_agency.repository;
 
 import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
+import com.synergy.sports_agency.stream.MyObjectOutPutStream;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -70,5 +71,25 @@ public class PlayerRepository {
 
     public ArrayList<Player> selectAllPlayers() {
         return playerList;
+    }
+
+    public int selectLastPlayerNo() {
+        Player lastPlayer = playerList.get(playerList.size() - 1);
+        return lastPlayer.getNo();
+    }
+
+    public int insertPlayer(Player player) {
+        int result = 0;
+
+        try (MyObjectOutPutStream moos = new MyObjectOutPutStream(new FileOutputStream(FILE_PATH, true))) {
+
+            moos.writeObject(player);
+            playerList.add(player);
+            result = 1;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }

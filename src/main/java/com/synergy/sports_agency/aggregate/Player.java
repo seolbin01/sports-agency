@@ -28,6 +28,17 @@ public class Player implements Serializable {
         this.grade = grade;
     }
 
+    public Player(String name, double height, double weight, int age, String category, String injury, int salary) {
+    this.name = name;
+    this.height = height;
+    this.weight = weight;
+    this.age = age;
+    this.category = category;
+    this.injury = injury;
+    this.salary = salary;
+    }
+
+
     public int getNo() {
         return no;
     }
