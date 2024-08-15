@@ -45,7 +45,7 @@ public class PlayerService {
     public Player findPlayerForModify(int no) {
         Player selectedPlayer = playRepository.selectPlayerByNo(no);
 
-        if(selectedPlayer != null) {
+        if (selectedPlayer != null) {
             Player newInstance = new Player();
             newInstance.setNo(selectedPlayer.getNo());
             newInstance.setName(selectedPlayer.getName());
@@ -66,10 +66,21 @@ public class PlayerService {
     public void modifyPlayer(Player player) {
         int result = playRepository.updatePlayer(player);
 
-        if(result == 1) {
+        if (result == 1) {
             System.out.println("선수 정보 수정이 완료되었습니다 ");
-        } else{
+        } else {
             System.out.println("입력하신 선수 번호에 해당하는 선수가 없습니다  ");
+        }
+
+    }
+
+    public void removePlayer(int no) {
+        int result = playRepository.deletePlayer(no);
+
+        if (result == 1) {
+            System.out.println("회원 탈퇴가 완료 되었습니다");
+        } else {
+            System.out.println("입력하신 회원 번호에 해당하는 회원이 없습니다");
         }
 
     }

@@ -32,7 +32,7 @@ public class Application {
                     if (selected == null) continue;
                     playerService.modifyPlayer(reform(selected));
                     break;
-                case 5: break;
+                case 5: playerService.removePlayer(chooseNo()); break;
                 case 9:
                     System.out.println("회원 관리 프로그램을 종료합니다.");
                     return;

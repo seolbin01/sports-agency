@@ -107,4 +107,19 @@ public class PlayerRepository {
 
         return 0;
     }
-}
+
+    public int deletePlayer(int no) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getNo() == no) {
+                playerList.remove(i);
+
+                File file = new File(FILE_PATH);
+                savePlayers(file, playerList);
+
+                return 1;
+            }
+        }
+        return 0;
+
+    }
+            }
