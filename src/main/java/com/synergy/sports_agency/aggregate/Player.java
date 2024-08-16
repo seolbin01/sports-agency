@@ -14,7 +14,8 @@ public class Player implements Serializable {
     private int salary;   // 연봉
     private Grade grade;   // 실력
 
-    public Player() {}
+    public Player() {
+    }
 
     public Player(int no, String name, double height, double weight, int age, String category, String injury, int salary, Grade grade) {
         this.no = no;
@@ -28,14 +29,15 @@ public class Player implements Serializable {
         this.grade = grade;
     }
 
-    public Player(String name, double height, double weight, int age, String category, String injury, int salary) {
-    this.name = name;
-    this.height = height;
-    this.weight = weight;
-    this.age = age;
-    this.category = category;
-    this.injury = injury;
-    this.salary = salary;
+    public Player(String name, double height, double weight, int age, String category, String injury, int salary, Grade grade) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.category = category;
+        this.injury = injury;
+        this.salary = salary;
+        this.grade = grade;
     }
 
 

@@ -43,7 +43,7 @@ public class Application {
     }
     private static int chooseNo() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("선수 번호 입력 : ");
+        System.out.print("선수 번호 입력 : ");
         return scanner.nextInt();
     }
 
@@ -139,27 +139,27 @@ public class Application {
         Player newPlayer = null;
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("선수명을 입력하세요: ");
+        System.out.print("선수명을 입력하세요: ");
         String name = sc.nextLine();
 
-        System.out.println("신장을 입력하세요: ");
+        System.out.print("신장을 입력하세요: ");
         double height = sc.nextDouble();
 
-        System.out.println("체중을 입력하세요: ");
+        System.out.print("체중을 입력하세요: ");
         double weight = sc.nextDouble();
 
-        System.out.println("나이을 입력하세요: ");
+        System.out.print("나이을 입력하세요: ");
         int age = sc.nextInt();
 
         sc.nextLine();
 
-        System.out.println("종목을 입력하세요: ");
+        System.out.print("종목을 입력하세요: ");
         String category = sc.nextLine();
 
-        System.out.println("부상을 입력하세요: ");
+        System.out.print("부상을 입력하세요: ");
         String injury = sc.nextLine();
 
-        System.out.println("연봉을 입력하세요: ");
+        System.out.print("연봉을 입력하세요: ");
         int salary = sc.nextInt();
 
         sc.nextLine();
@@ -177,9 +177,7 @@ public class Application {
             default -> null;
         };
 
-        newPlayer = new Player(name, height, weight, age, category, injury, salary);
-
-        newPlayer.setGrade(gt);
+        newPlayer = new Player(name, height, weight, age, category, injury, salary, gt);
 
         return newPlayer;
     }
