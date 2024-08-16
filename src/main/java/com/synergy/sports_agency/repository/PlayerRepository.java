@@ -2,6 +2,7 @@ package com.synergy.sports_agency.repository;
 
 import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
+import com.synergy.sports_agency.stream.MyObjectOutPutStream;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class PlayerRepository {
 
         File file = new File(FILE_PATH);
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             ArrayList<Player> players = new ArrayList<>();
             players.add(new Player(1, "설빈", 182.5, 50.8, 26, "요가", "어깨", 8500000, Grade.S));
             players.add(new Player(2, "재훈", 151.6, 120.6, 18, "댄스스포츠", "발목", 4500000, Grade.S));
@@ -33,8 +34,8 @@ public class PlayerRepository {
     }
 
     public Player selectPlayerByNo(int no) {
-        for (Player player : playerList){
-            if(player.getNo() == no){
+        for (Player player : playerList) {
+            if (player.getNo() == no) {
                 return player;
             }
         }
@@ -71,4 +72,54 @@ public class PlayerRepository {
     public ArrayList<Player> selectAllPlayers() {
         return playerList;
     }
-}
+
+    public int selectLastPlayerNo() {
+        Player lastPlayer = playerList.get(playerList.size() - 1);
+        return lastPlayer.getNo();
+    }
+
+    public int insertPlayer(Player player) {
+        int result = 0;
+
+        try (MyObjectOutPutStream moos = new MyObjectOutPutStream(new FileOutputStream(FILE_PATH, true))) {
+
+            moos.writeObject(player);
+            playerList.add(player);
+            result = 1;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public int updatePlayer(Player player) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getNo() == player.getNo()) {
+                playerList.set(i, player);
+
+                File file = new File(FILE_PATH);
+                savePlayers(file, playerList);
+
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+    public int deletePlayer(int no) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getNo() == no) {
+                playerList.remove(i);
+
+                File file = new File(FILE_PATH);
+                savePlayers(file, playerList);
+
+                return 1;
+            }
+        }
+        return 0;
+
+    }
+            }
