@@ -125,28 +125,9 @@ public class PlayerRepository {
 
     }
 
-
-    public Map<String, String> selectBestPlayers() {
-        // Player의 Grade를 ordinal 값으로 비교하여 등급 순서 결정 S -> E 순서.
-        Comparator<Player> gradeComparator = Comparator.comparingInt(player -> player.getGrade().ordinal());
-
-        /* 선수 리스트를 스트림으로 변환,
-         종목별로 그룹화 후 가장 높은 등급 선수 선별 */
-        return playerList.stream()
-                .collect(Collectors.groupingBy(
-                        Player::getCategory,
-                        Collectors.collectingAndThen(
-                                // 각 카테고리별로 가장 높은 등급을 가진 선수를 찾습니다.
-                                Collectors.maxBy(gradeComparator.reversed()),
-                                // 등급 비교기를 역순으로 사용하여 최고 등급을 선택 기본 순서가 오름차순이라서 .
-                                optionalPlayer -> optionalPlayer
-                                        // 선수의 이름과 등급을 문자열로 변환
-                                        .map(player -> player.getName() + " (실력: " + player.getGrade() + ")")
-                                        .orElse("선수가 존재하지 않습니다")
-                        )
-                ));
+    public List<Player> getAllPlayers() {
+        return new ArrayList<>(playerList); // 선수 목록 배열 List로
     }
-
     public DoubleStream avgSalaryAllPlayer() {
         return playerList.stream()
                 .mapToDouble(Player::getSalary);

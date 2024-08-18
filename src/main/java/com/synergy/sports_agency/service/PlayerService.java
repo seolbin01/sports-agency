@@ -88,12 +88,31 @@ public class PlayerService {
 
     }
 
+    public Map<String, String> selectBestPlayers() {
+        List<Player> players = playRepository.getAllPlayers();
+        // Player의 Grade를 ordinal 값으로 비교
+        Comparator<Player> gradeComparator = Comparator.comparingInt(player -> player.getGrade().ordinal());
+
+        return players.stream()
+                .collect(Collectors.groupingBy(
+                        Player::getCategory,
+                        Collectors.collectingAndThen(
+                                // 각 카테고리별로 가장 높은 등급 선수 찾기
+                                Collectors.maxBy(gradeComparator.reversed()),
+                                optionalPlayer -> optionalPlayer
+                                        .map(player -> player.getName() + " (실력: " + player.getGrade() + ")")
+                                        .orElse("선수가 존재하지 않습니다")
+                        )
+                ));
+    }
+
     public void bestPlayer() {
-        Map<String, String> bestPlayersByCategory = playRepository.selectBestPlayers();
+        Map<String, String> bestPlayersByCategory = selectBestPlayers();
 
         bestPlayersByCategory.forEach((category, playerDetails) ->
                 System.out.println("종목: " + category + ", 선수명: " + playerDetails));
     }
+
 
     public void avgSalaryPlayer() {
         DoubleStream salaryStream = playRepository.avgSalaryAllPlayer();
