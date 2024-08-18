@@ -138,7 +138,51 @@ public class PlayerService {
         System.out.println("모든 선수 목록(이름) : " + nameList);
     }
 
-    public void manageInjury() {
+     public void salaryOfNextYear() {
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        Map<String, Integer> salaryOfNextYear = findPlayers.stream()
+                .collect(Collectors.toMap(
+                        Player::getName,
+                        player -> {
+                            if(player.getGrade().equals(Grade.S) ||
+                                    player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
+                            else if(player.getGrade().equals(Grade.C) ||
+                                    player.getGrade().equals(Grade.D) ||
+                                    player.getGrade().equals(Grade.E)) {
+                                if(player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
+                                else player.setSalary(0);
+                            }
+                            return player.getSalary();
+                        }
+                        ));
+
+        salaryOfNextYear.forEach((playerName, nextSalary) ->
+                System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
+
+      public void checkBMIAndChangeSalary(int no) {
+          Player selectedPlayer = playRepository.selectPlayerByNo(no);
+
+          System.out.print("선수 이름: " + selectedPlayer.getName());
+          System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
+
+          double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
+          BMI = Math.round(BMI*100)/100.0;   // 소숫점 세번째 자리에서 반올림
+
+          System.out.print(", BMI: " + BMI);
+
+          if(BMI >= 25) {
+              if(selectedPlayer.getSalary() >= 100000) {
+                  selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
+              } else {
+                  selectedPlayer.setSalary(0);
+              }
+          }
+
+          System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
+          System.out.println();
+    }
+     public void manageInjury() {
         ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
 
         Map<String, Grade> salaryOfNextYear = findPlayers.stream()
@@ -168,5 +212,4 @@ public class PlayerService {
             return grades[ordinal];        // 이미 최소 등급이면 그대로 반환
         }
     }
-
 }
