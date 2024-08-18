@@ -28,6 +28,7 @@ public class Application {
             System.out.println("12. 특정 선수 BMI 체크 후 연봉 조정");
             System.out.println("13. 부상 관리");
             System.out.println("14. 미성년자 선수 연봉 제한");
+            System.out.println("15. 특정 년도에 따른 성인 선수 선별");
             System.out.println("99. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
@@ -51,6 +52,7 @@ public class Application {
                 case 12: playerService.checkBMIAndChangeSalary(chooseNo()); break;
                 case 13: playerService.manageInjury(); break;
                 case 14: playerService.limitSalaryYoungPlayer(); break;
+                case 15: playerService.findAdultPlayerByYear(chooseYear()); break;
                 case 99:
                     System.out.println("선수 관리 프로그램을 종료합니다.");
                     return;
@@ -62,6 +64,12 @@ public class Application {
     private static int chooseNo() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("선수 번호 입력 : ");
+        return scanner.nextInt();
+    }
+
+    private static int chooseYear() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("년도 입력 : ");
         return scanner.nextInt();
     }
 

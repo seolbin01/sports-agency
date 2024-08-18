@@ -4,6 +4,7 @@ import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -235,5 +236,21 @@ public class PlayerService {
         System.out.println("※ 미성년자 선수의 경우, 최대 백만원으로 연봉이 제한됩니다. ※");
         limitSalary.forEach((playerName, salary) ->
                 System.out.println("선수 이름: " + playerName + ", 연봉: " + salary + "원"));
+    }
+
+    public void findAdultPlayerByYear(int year) {
+        int yeardiff = year - LocalDate.now().getYear();
+
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        System.out.println("※ 나이순으로 내림차순 정렬하여 출력 ※");
+        List<String> adultPlayer = findPlayers.stream()
+                .filter(player -> player.getAge() + yeardiff >= 20)
+                .sorted(Comparator.comparingInt(Player::getAge).reversed())
+                .map(Player::getName)
+                .toList();
+
+        System.out.println(adultPlayer);
+
     }
 }
