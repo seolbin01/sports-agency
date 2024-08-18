@@ -140,7 +140,7 @@ public class PlayerRepository {
                                 Collectors.maxBy(gradeComparator.reversed()),
                                 // 등급 비교기를 역순으로 사용하여 최고 등급을 선택 기본 순서가 오름차순이라서 .
                                 optionalPlayer -> optionalPlayer
-                                        // 선수의 이름과 등급을 문자열로 변환합니다.
+                                        // 선수의 이름과 등급을 문자열로 변환
                                         .map(player -> player.getName() + " (실력: " + player.getGrade() + ")")
                                         .orElse("선수가 존재하지 않습니다")
                         )
@@ -181,4 +181,11 @@ public class PlayerRepository {
 
         return lightestPlayer;
     }
+
+    public List<String> selectAllNamePlayers() {
+        return playerList.stream()
+                .map(Player::getName) // 선수명 map으로 받기
+                .collect(Collectors.toList());
+    }
 }
+
