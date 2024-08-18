@@ -1,5 +1,6 @@
 package com.synergy.sports_agency.service;
 
+import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
@@ -135,5 +136,28 @@ public class PlayerService {
                 .collect(Collectors.joining(", "));
 
         System.out.println("모든 선수 목록(이름) : " + nameList);
+    }
+
+    public void salaryOfNextYear() {
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        Map<String, Integer> salaryOfNextYear = findPlayers.stream()
+                .collect(Collectors.toMap(
+                        Player::getName,
+                        player -> {
+                            if(player.getGrade().equals(Grade.S) ||
+                                    player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
+                            else if(player.getGrade().equals(Grade.C) ||
+                                    player.getGrade().equals(Grade.D) ||
+                                    player.getGrade().equals(Grade.E)) {
+                                if(player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
+                                else player.setSalary(0);
+                            }
+                            return player.getSalary();
+                        }
+                        ));
+
+        salaryOfNextYear.forEach((playerName, nextSalary) ->
+                System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
     }
 }
