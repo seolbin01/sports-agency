@@ -174,14 +174,13 @@ public class PlayerService {
                         Player::getName,
                         player -> {
                             if (player.getGrade().equals(Grade.S) ||
-                                    player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
+                                    player.getGrade().equals(Grade.A)) return player.getSalary() + 500000;
                             else if (player.getGrade().equals(Grade.C) ||
                                     player.getGrade().equals(Grade.D) ||
                                     player.getGrade().equals(Grade.E)) {
-                                if (player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
-                                else player.setSalary(0);
+                                if (player.getSalary() >= 500000) return player.getSalary() - 500000;
                             }
-                            return player.getSalary();
+                            return 0;
                         }
                 ));
 
