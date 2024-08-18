@@ -25,12 +25,58 @@
 4. 통계 및 분석 : 선수 데이터를 바탕으로 다양한 통계 정보를 제공하는 기능을 포함합니다.
 
 ### 1️⃣ 선수 관리
-1. 모든 선수 정보 보기
-2. 선수 찾기
-3. 선수 등록
-4. 선수 정보 수정
-5. 선수 방출
-6. 특정 년도에 따른 성인 선수 선별
+<details>
+<summary>1. 모든 선수 정보 보기</summary>
+<div markdown="1">
+
+![1-1](./image/1-1.png)
+
+</div>
+</details>
+
+<details>
+<summary>2. 선수 찾기</summary>
+<div markdown="1">
+
+![1-2](./image/1-2.png)
+
+</div>
+</details>
+
+<details>
+<summary>3. 선수 등록</summary>
+<div markdown="1">
+
+![1-3](./image/1-3.png)
+
+</div>
+</details>
+
+<details>
+<summary>4. 선수 정보 수정</summary>
+<div markdown="1">
+
+![1-4](./image/1-4.png)
+
+</div>
+</details>
+
+<details>
+<summary>5. 선수 방출</summary>
+<div markdown="1">
+
+![1-5](./image/1-5.png)
+
+</div>
+</details><details>
+<summary>6. 특정 년도에 따른 성인 선수 선별</summary>
+<div markdown="1">
+
+![1-6](./image/1-6.png)
+
+</div>
+</details>
+
 
 ![선수 관리](./image/2.png)
 
