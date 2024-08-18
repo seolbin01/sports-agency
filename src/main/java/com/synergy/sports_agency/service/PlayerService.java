@@ -114,21 +114,17 @@ public class PlayerService {
                 System.out.println("종목: " + category + ", 선수명: " + playerDetails));
     }
 
-
     public void avgSalaryPlayer() {
-        DoubleStream salaryStream = playRepository.avgSalaryAllPlayer();
+   // 1. 기존 selectAllPlayer에서 List 가져어기
+        ArrayList<Player> playerList = playRepository.selectAllPlayers();
 
-        // OptionalDouble로 평균 연봉을 계산
-        OptionalDouble averageSalaryOpt = salaryStream.average();
+        // 선수 리스트를 스트림으로 변환하고 , 이제 평균을 계산한다
+        double averageSalary = playerList.stream()
+                .mapToDouble(Player::getSalary)
+                .average()
+                .orElse(0.0);
 
-        if (averageSalaryOpt.isPresent()) {
-            // 평균 연봉이 존재할 때
-            double averageSalary = averageSalaryOpt.getAsDouble();
-            System.out.println("모든 선수의 평균 연봉: " + averageSalary + "원");
-        } else {
-            // 평균 연봉이 없을 때 (선수가 없는 경우 등)
-            System.out.println("선수가 없습니다. 평균 연봉을 계산할 수 없습니다.");
-        }
+        System.out.println("모든 선수의 평균 연봉: " + averageSalary + "원");
     }
 
     public void avgHeightPlayer() {
