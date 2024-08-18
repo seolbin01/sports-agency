@@ -1,5 +1,6 @@
 package com.synergy.sports_agency.service;
 
+import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
@@ -136,4 +137,36 @@ public class PlayerService {
 
         System.out.println("모든 선수 목록(이름) : " + nameList);
     }
+
+    public void manageInjury() {
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        Map<String, Grade> salaryOfNextYear = findPlayers.stream()
+                .collect(Collectors.toMap(
+                        Player::getName,
+                        player -> {
+                            if(player.getInjury().isEmpty()) {
+                                System.out.println(player.getName() + " 선수는 부상이 없어 등급이 하락하지 않았습니다.");
+                            } else {
+                                player.setGrade(decrementGrade(player.getGrade()));
+                            }
+                            return player.getGrade();
+                        }
+                ));
+
+        salaryOfNextYear.forEach((playerName, grade) ->
+                System.out.println("선수 이름: " + playerName + ", 실력(등급): " + grade));
+
+    }
+
+    public Grade decrementGrade(Grade currentGrade) {
+        Grade[] grades = Grade.values(); // S, A, B, C, D, E
+        int ordinal = currentGrade.ordinal(); // 현재 등급의 순서
+        if (ordinal < grades.length - 1) { // 감소할 수 있는 경우
+            return grades[ordinal + 1];    // 다음 등급을 반환
+        } else {
+            return grades[ordinal];        // 이미 최소 등급이면 그대로 반환
+        }
+    }
+
 }
