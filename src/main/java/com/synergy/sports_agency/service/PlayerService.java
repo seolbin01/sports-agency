@@ -1,5 +1,6 @@
 package com.synergy.sports_agency.service;
 
+import com.synergy.sports_agency.aggregate.Grade;
 import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
@@ -137,26 +138,48 @@ public class PlayerService {
         System.out.println("모든 선수 목록(이름) : " + nameList);
     }
 
-    public void checkBMIAndChangeSalary(int no) {
-        Player selectedPlayer = playRepository.selectPlayerByNo(no);
+    public void salaryOfNextYear() {
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
 
-        System.out.print("선수 이름: " + selectedPlayer.getName());
-        System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
+        Map<String, Integer> salaryOfNextYear = findPlayers.stream()
+                .collect(Collectors.toMap(
+                        Player::getName,
+                        player -> {
+                            if(player.getGrade().equals(Grade.S) ||
+                                    player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
+                            else if(player.getGrade().equals(Grade.C) ||
+                                    player.getGrade().equals(Grade.D) ||
+                                    player.getGrade().equals(Grade.E)) {
+                                if(player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
+                                else player.setSalary(0);
+                            }
+                            return player.getSalary();
+                        }
+                        ));
 
-        double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
-        BMI = Math.round(BMI*100)/100.0;   // 소숫점 세번째 자리에서 반올림
+        salaryOfNextYear.forEach((playerName, nextSalary) ->
+                System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
 
-        System.out.print(", BMI: " + BMI);
+      public void checkBMIAndChangeSalary(int no) {
+          Player selectedPlayer = playRepository.selectPlayerByNo(no);
 
-        if(BMI >= 25) {
-            if(selectedPlayer.getSalary() >= 100000) {
-                selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
-            } else {
-                selectedPlayer.setSalary(0);
-            }
-        }
+          System.out.print("선수 이름: " + selectedPlayer.getName());
+          System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
 
-        System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
-        System.out.println();
+          double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
+          BMI = Math.round(BMI*100)/100.0;   // 소숫점 세번째 자리에서 반올림
+
+          System.out.print(", BMI: " + BMI);
+
+          if(BMI >= 25) {
+              if(selectedPlayer.getSalary() >= 100000) {
+                  selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
+              } else {
+                  selectedPlayer.setSalary(0);
+              }
+          }
+
+          System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
+          System.out.println();
     }
 }
