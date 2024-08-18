@@ -26,6 +26,7 @@ public class Application {
             System.out.println("10. 모든 선수 목록(선수명)");
             System.out.println("11. 내년 연봉 미리보기");
             System.out.println("12. 특정 선수 BMI 체크 후 연봉 조정");
+            System.out.println("13. 부상 관리");
             System.out.println("99. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
@@ -47,6 +48,7 @@ public class Application {
                 case 10: playerService.findNamePlayer(); break;
                 case 11: playerService.salaryOfNextYear(); break;
                 case 12: playerService.checkBMIAndChangeSalary(chooseNo()); break;
+                case 13: playerService.manageInjury(); break;
                 case 99:
                     System.out.println("선수 관리 프로그램을 종료합니다.");
                     return;
