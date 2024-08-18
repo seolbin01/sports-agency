@@ -139,77 +139,77 @@ public class PlayerService {
     }
 
      public void salaryOfNextYear() {
-        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+         ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
 
-        Map<String, Integer> salaryOfNextYear = findPlayers.stream()
-                .collect(Collectors.toMap(
-                        Player::getName,
-                        player -> {
-                            if(player.getGrade().equals(Grade.S) ||
-                                    player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
-                            else if(player.getGrade().equals(Grade.C) ||
-                                    player.getGrade().equals(Grade.D) ||
-                                    player.getGrade().equals(Grade.E)) {
-                                if(player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
-                                else player.setSalary(0);
-                            }
-                            return player.getSalary();
-                        }
-                        ));
+         Map<String, Integer> salaryOfNextYear = findPlayers.stream()
+                 .collect(Collectors.toMap(
+                         Player::getName,
+                         player -> {
+                             if (player.getGrade().equals(Grade.S) ||
+                                     player.getGrade().equals(Grade.A)) player.setSalary(player.getSalary() + 500000);
+                             else if (player.getGrade().equals(Grade.C) ||
+                                     player.getGrade().equals(Grade.D) ||
+                                     player.getGrade().equals(Grade.E)) {
+                                 if (player.getSalary() >= 500000) player.setSalary(player.getSalary() - 500000);
+                                 else player.setSalary(0);
+                             }
+                             return player.getSalary();
+                         }
+                 ));
 
-        salaryOfNextYear.forEach((playerName, nextSalary) ->
-                System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
+         salaryOfNextYear.forEach((playerName, nextSalary) ->
+                 System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
 
-      public void checkBMIAndChangeSalary(int no) {
-          Player selectedPlayer = playRepository.selectPlayerByNo(no);
+         public void checkBMIAndChangeSalary( int no){
+             Player selectedPlayer = playRepository.selectPlayerByNo(no);
 
-          System.out.print("선수 이름: " + selectedPlayer.getName());
-          System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
+             System.out.print("선수 이름: " + selectedPlayer.getName());
+             System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
 
-          double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
-          BMI = Math.round(BMI*100)/100.0;   // 소숫점 세번째 자리에서 반올림
+             double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
+             BMI = Math.round(BMI * 100) / 100.0;   // 소숫점 세번째 자리에서 반올림
 
-          System.out.print(", BMI: " + BMI);
+             System.out.print(", BMI: " + BMI);
 
-          if(BMI >= 25) {
-              if(selectedPlayer.getSalary() >= 100000) {
-                  selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
-              } else {
-                  selectedPlayer.setSalary(0);
-              }
-          }
+             if (BMI >= 25) {
+                 if (selectedPlayer.getSalary() >= 100000) {
+                     selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
+                 } else {
+                     selectedPlayer.setSalary(0);
+                 }
+             }
 
-          System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
-          System.out.println();
-    }
-     public void manageInjury() {
-        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+             System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
+             System.out.println();
+         }
+         public void manageInjury () {
+             ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
 
-        Map<String, Grade> salaryOfNextYear = findPlayers.stream()
-                .collect(Collectors.toMap(
-                        Player::getName,
-                        player -> {
-                            if(player.getInjury().isEmpty()) {
-                                System.out.println(player.getName() + " 선수는 부상이 없어 등급이 하락하지 않았습니다.");
-                            } else {
-                                player.setGrade(decrementGrade(player.getGrade()));
-                            }
-                            return player.getGrade();
-                        }
-                ));
+             Map<String, Grade> salaryOfNextYear = findPlayers.stream()
+                     .collect(Collectors.toMap(
+                             Player::getName,
+                             player -> {
+                                 if (player.getInjury().isEmpty()) {
+                                     System.out.println(player.getName() + " 선수는 부상이 없어 등급이 하락하지 않았습니다.");
+                                 } else {
+                                     player.setGrade(decrementGrade(player.getGrade()));
+                                 }
+                                 return player.getGrade();
+                             }
+                     ));
 
-        salaryOfNextYear.forEach((playerName, grade) ->
-                System.out.println("선수 이름: " + playerName + ", 실력(등급): " + grade));
+             salaryOfNextYear.forEach((playerName, grade) ->
+                     System.out.println("선수 이름: " + playerName + ", 실력(등급): " + grade));
 
-    }
+         }
 
-    public Grade decrementGrade(Grade currentGrade) {
-        Grade[] grades = Grade.values(); // S, A, B, C, D, E
-        int ordinal = currentGrade.ordinal(); // 현재 등급의 순서
-        if (ordinal < grades.length - 1) { // 감소할 수 있는 경우
-            return grades[ordinal + 1];    // 다음 등급을 반환
-        } else {
-            return grades[ordinal];        // 이미 최소 등급이면 그대로 반환
-        }
-    }
-}
+         public Grade decrementGrade (Grade currentGrade){
+             Grade[] grades = Grade.values(); // S, A, B, C, D, E
+             int ordinal = currentGrade.ordinal(); // 현재 등급의 순서
+             if (ordinal < grades.length - 1) { // 감소할 수 있는 경우
+                 return grades[ordinal + 1];    // 다음 등급을 반환
+             } else {
+                 return grades[ordinal];        // 이미 최소 등급이면 그대로 반환
+             }
+         }
+     }
