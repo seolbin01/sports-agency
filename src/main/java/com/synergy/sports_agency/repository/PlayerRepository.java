@@ -125,11 +125,6 @@ public class PlayerRepository {
 
     }
 
-    public DoubleStream avgSalaryAllPlayer() {
-        return playerList.stream()
-                .mapToDouble(Player::getSalary);
-    }
-
     public Map<String, Double> avgHeightByCategory() {
         return playerList.stream()
                 .collect(Collectors.groupingBy(
