@@ -4,6 +4,10 @@ import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class PlayerService {
 
@@ -84,4 +88,11 @@ public class PlayerService {
         }
 
     }
-}
+
+    public void bestPlayer() {
+        Map<String, String> bestPlayersByCategory = playRepository.selectBestPlayers();
+
+        bestPlayersByCategory.forEach((category, playerDetails) ->
+                System.out.println("종목: " + category + ", 선수명: " + playerDetails));
+    }
+    }
