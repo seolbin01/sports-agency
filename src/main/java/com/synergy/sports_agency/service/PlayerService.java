@@ -95,19 +95,18 @@ public class PlayerService {
         bestPlayersByCategory.forEach((category, playerDetails) ->
                 System.out.println("종목: " + category + ", 선수명: " + playerDetails));
     }
+
     public void avgSalaryPlayer() {
+        // 모든 선수의 연봉을 DoubleStream으로 생성
         DoubleStream salaryStream = playRepository.avgSalaryAllPlayer();
 
-        // OptionalDouble로 평균 연봉을 계산
-        OptionalDouble averageSalaryOpt = salaryStream.average();
+        // 평균 연봉을 직접 계산
+        double averageSalary = salaryStream
+                .reduce((a, b) -> a + b) // 연봉을 모두 더함
+                .orElse(0.0) / playRepository.selectAllPlayers().size(); // 선수 수로 나눔
 
-        if (averageSalaryOpt.isPresent()) {
-            // 평균 연봉이 존재할 때
-            double averageSalary = averageSalaryOpt.getAsDouble();
-            System.out.println("모든 선수의 평균 연봉: " + averageSalary + "원");
-        } else {
-            // 평균 연봉이 없을 때 (선수가 없는 경우 등)
-            System.out.println("선수가 없습니다. 평균 연봉을 계산할 수 없습니다.");
-        }
+        // 평균 연봉 출력
+        System.out.println("모든 선수의 평균 연봉: " + averageSalary + "원");
     }
-    }
+
+}

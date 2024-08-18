@@ -20,7 +20,7 @@ public class Application {
             System.out.println("4. 선수 정보 수정");
             System.out.println("5. 선수 방출");
             System.out.println("6. 종목별 최고(등급) 선수 찾기");
-            System.out.println("7. 모든 선수 평균 연봉 보기");
+            System.out.println("7. 모든 선수 평균 연봉");
             System.out.println("99. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
