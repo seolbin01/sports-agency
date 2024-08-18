@@ -125,13 +125,6 @@ public class PlayerRepository {
 
     }
 
-    public Map<String, Double> avgHeightByCategory() {
-        return playerList.stream()
-                .collect(Collectors.groupingBy(
-                        Player::getCategory,  // 종목별로 그룹화
-                        Collectors.averagingDouble(Player::getHeight)  // 평균 키 계산
-                ));
-    }
     public Player findLightWeightMZPlayer() {
         List<Player> mzPlayers = playerList.stream()
                 .filter(player -> player.getAge() >= 20 && player.getAge() <= 40) // MZ 세대를 20살 부터 40살까지
