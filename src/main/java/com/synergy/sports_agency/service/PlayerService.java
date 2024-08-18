@@ -115,7 +115,7 @@ public class PlayerService {
     }
 
     public void avgSalaryPlayer() {
-   // 1. 기존 selectAllPlayer에서 List 가져어기
+        // 1. 기존 selectAllPlayer에서 List 가져어기
         ArrayList<Player> playerList = playRepository.selectAllPlayers();
 
         // 선수 리스트를 스트림으로 변환하고 , 이제 평균을 계산한다
@@ -124,7 +124,8 @@ public class PlayerService {
                 .average()
                 .orElse(0.0);
 
-        System.out.println("모든 선수의 평균 연봉: " + averageSalary + "원");
+        System.out.println("※ 소수점 셋째 자리에서 반올림 ※");
+        System.out.println("모든 선수의 평균 연봉: " + Math.round(averageSalary * 100) / 100.0 + "원");
     }
 
     public void avgHeightPlayer() {
@@ -162,8 +163,9 @@ public class PlayerService {
                 .orElse(null);
 
         if (lightestPlayer != null) {
-            System.out.println("몸무게가 가장 가벼운 MZ 세대 선수:");
+            System.out.println("※ 몸무게가 가장 가벼운 MZ 세대 선수 ※");
             System.out.println("이름: " + lightestPlayer.getName());
+            System.out.println("나이: " + lightestPlayer.getAge());
             System.out.println("몸무게: " + lightestPlayer.getWeight() + "kg");
         } else {
             System.out.println("MZ 세대 선수 정보가 없습니다.");
@@ -199,6 +201,7 @@ public class PlayerService {
                         }
                 ));
 
+        System.out.println("※ A이상 500000 인상 / B 동결 / C이하 500000 삭감 예정 ※");
         salaryOfNextYear.forEach((playerName, nextSalary) ->
                 System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
 
@@ -207,28 +210,38 @@ public class PlayerService {
     public void checkBMIAndChangeSalary(int no) {
         Player selectedPlayer = playRepository.selectPlayerByNo(no);
 
-        System.out.print("선수 이름: " + selectedPlayer.getName());
-        System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
+        if (selectedPlayer != null) {
+            System.out.println("※ BMI 25 이상이면 연봉 100000 삭감 ※");
+            System.out.println("※ 소수점 셋째 자리에서 반올림 ※");
 
-        double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
-        BMI = Math.round(BMI * 100) / 100.0;   // 소숫점 세번째 자리에서 반올림
+            System.out.print("선수 이름: " + selectedPlayer.getName());
+            System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
 
-        System.out.print(", BMI: " + BMI);
+            double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
+            BMI = Math.round(BMI * 100) / 100.0;   // 소수점 셋째 자리에서 반올림
 
-        if (BMI >= 25) {
-            if (selectedPlayer.getSalary() >= 100000) {
-                selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
-            } else {
-                selectedPlayer.setSalary(0);
+            System.out.print(", BMI: " + BMI);
+
+            if (BMI >= 25) {
+                if (selectedPlayer.getSalary() >= 100000) {
+                    selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
+                } else {
+                    selectedPlayer.setSalary(0);
+                }
             }
+
+            System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
+            System.out.println();
+        } else {
+            System.out.println("해당 번호를 가진 선수는 없습니다");
         }
 
-        System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
-        System.out.println();
     }
 
     public void manageInjury() {
         ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        System.out.println("※ 현재 부상 중이면 선수 등급이 한 단계 하락합니다. ※");
 
         Map<String, Grade> salaryOfNextYear = findPlayers.stream()
                 .collect(Collectors.toMap(
@@ -283,6 +296,7 @@ public class PlayerService {
 
         ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
 
+        System.out.println(year + "년 기준 성인 선수를 선별합니다.");
         System.out.println("※ 나이순으로 내림차순 정렬하여 출력 ※");
         List<String> adultPlayer = findPlayers.stream()
                 .filter(player -> player.getAge() + yeardiff >= 20)
@@ -292,5 +306,33 @@ public class PlayerService {
 
         System.out.println(adultPlayer);
 
+    }
+
+    public void treatInjury(String name) {
+        Player selectedPlayer = playRepository.selectPlayerByName(name);
+
+        if (selectedPlayer != null) {
+            if (!selectedPlayer.getInjury().isEmpty()) {
+                selectedPlayer.setInjury("");
+                System.out.println(name + " 선수의 부상을 치료했습니다.");
+            } else {
+                System.out.println(name + " 선수는 부상이 없어 치료할 필요가 없습니다.");
+            }
+        } else {
+            System.out.println("해당 이름을 가진 선수는 없습니다");
+        }
+    }
+
+    public void addInjury(String category) {
+        ArrayList<Player> selectedPlaryers = playRepository.selectPlayerByCategory(category);
+
+        if (!selectedPlaryers.isEmpty()) {
+            for (Player player : selectedPlaryers) {
+                player.setInjury("다리");
+            }
+            System.out.println(category + " 종목의 선수들이 부상을 입었습니다.");
+        } else {
+            System.out.println("해당 종목의 선수가 없습니다.");
+        }
     }
 }

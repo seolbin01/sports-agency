@@ -14,6 +14,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("===== 스포스 에이전시 =====");
             System.out.println("1. 선수 관리");
             System.out.println("2. 연봉 관리");
@@ -41,6 +42,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("===== 선수 관리 프로그램 =====");
             System.out.println("1. 모든 선수 정보 보기");
             System.out.println("2. 선수 찾기");
@@ -76,6 +78,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("===== 연봉 관리 프로그램 =====");
             System.out.println("1. 모든 선수 평균 연봉 보기");
             System.out.println("2. 내년 연봉 미리보기");
@@ -103,16 +106,19 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("===== 건강 관리 프로그램 =====");
-            System.out.println("1. 부상 관리");
-            System.out.println("2. MZ세대 선수 중 가장 가벼운 선수 찾기");
+            System.out.println("1. 사고 발생");
+            System.out.println("2. 부상 치료");
+            System.out.println("3. 부상 유무에 따른 선수 등급 조정");
             System.out.println("9. 돌아가기");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
 
             switch (choice) {
-                case 1: playerService.manageInjury(); break;
-                case 2: playerService.lightWeightMZPlayer(); break;
+                case 1: playerService.addInjury(chooseCategory()); break;
+                case 2: playerService.treatInjury(chooseName());break;
+                case 3: playerService.manageInjury(); break;
                 case 9:
                     System.out.println("이전으로 돌아갑니다.");
                     return;
@@ -126,10 +132,12 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("===== 통계 및 분석 프로그램 =====");
             System.out.println("1. 종목별 최고 등급 선수");
             System.out.println("2. 종목별 평균 신장");
-            System.out.println("3. 모든 선수 목록(선수명)");
+            System.out.println("3. MZ세대 선수 중 가장 가벼운 선수 찾기");
+            System.out.println("4. 모든 선수 목록(선수명)");
             System.out.println("9. 돌아가기");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
@@ -137,7 +145,8 @@ public class Application {
             switch (choice) {
                 case 1: playerService.bestPlayer(); break;
                 case 2: playerService.avgHeightPlayer(); break;
-                case 3: playerService.findNamePlayer(); break;
+                case 3: playerService.lightWeightMZPlayer(); break;
+                case 4: playerService.findNamePlayer(); break;
                 case 9:
                     System.out.println("이전으로 돌아갑니다.");
                     return;
@@ -157,6 +166,18 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         System.out.print("년도 입력 : ");
         return scanner.nextInt();
+    }
+
+    private static String chooseName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("선수 이름 입력 : ");
+        return scanner.nextLine();
+    }
+
+    private static String chooseCategory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("종목 입력 : ");
+        return scanner.nextLine();
     }
 
     private static Player reform(Player selected) {

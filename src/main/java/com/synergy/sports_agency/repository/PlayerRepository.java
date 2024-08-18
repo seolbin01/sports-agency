@@ -44,6 +44,27 @@ public class PlayerRepository {
         return null;
     }
 
+    public Player selectPlayerByName(String name) {
+        for (Player player : playerList) {
+            if (player.getName().equals(name)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Player> selectPlayerByCategory(String category) {
+        ArrayList<Player> playerListByCategory = new ArrayList<>();
+
+        for (Player player : playerList) {
+            if (player.getCategory().equals(category)) {
+                playerListByCategory.add(player);
+            }
+        }
+        return playerListByCategory;
+    }
+
+
     private void loadPlayers(File file) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 
