@@ -159,5 +159,27 @@ public class PlayerService {
 
         salaryOfNextYear.forEach((playerName, nextSalary) ->
                 System.out.println("선수 이름: " + playerName + ", 내년 연봉: " + nextSalary + "원"));
+
+      public void checkBMIAndChangeSalary(int no) {
+          Player selectedPlayer = playRepository.selectPlayerByNo(no);
+
+          System.out.print("선수 이름: " + selectedPlayer.getName());
+          System.out.print(", 이전 연봉: " + selectedPlayer.getSalary() + "원");
+
+          double BMI = selectedPlayer.getWeight() / Math.pow((selectedPlayer.getHeight() / 100), 2);
+          BMI = Math.round(BMI*100)/100.0;   // 소숫점 세번째 자리에서 반올림
+
+          System.out.print(", BMI: " + BMI);
+
+          if(BMI >= 25) {
+              if(selectedPlayer.getSalary() >= 100000) {
+                  selectedPlayer.setSalary(selectedPlayer.getSalary() - 100000);
+              } else {
+                  selectedPlayer.setSalary(0);
+              }
+          }
+
+          System.out.print(", 조정 후 연봉: " + selectedPlayer.getSalary() + "원");
+          System.out.println();
     }
 }
