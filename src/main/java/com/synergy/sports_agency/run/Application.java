@@ -19,7 +19,8 @@ public class Application {
             System.out.println("3. 선수 등록");
             System.out.println("4. 선수 정보 수정");
             System.out.println("5. 선수 방출");
-            System.out.println("9. 프로그램 종료");
+            System.out.println("6. 종목별 최고(등급) 선수 찾기");
+            System.out.println("99. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
 
@@ -33,7 +34,8 @@ public class Application {
                     playerService.modifyPlayer(reform(selected));
                     break;
                 case 5: playerService.removePlayer(chooseNo()); break;
-                case 9:
+                case 6: playerService.bestPlayer(); break;
+                case 99:
                     System.out.println("선수 관리 프로그램을 종료합니다.");
                     return;
                 default:
