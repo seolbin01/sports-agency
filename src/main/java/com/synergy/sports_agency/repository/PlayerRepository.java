@@ -148,8 +148,17 @@ public class PlayerRepository {
                         )
                 ));
     }
+
     public DoubleStream avgSalaryAllPlayer() {
-         return playerList.stream()
+        return playerList.stream()
                 .mapToDouble(Player::getSalary);
+    }
+
+    public Map<String, Double> avgHeightByCategory() {
+        return playerList.stream()
+                .collect(Collectors.groupingBy(
+                        Player::getCategory,  // 종목별로 그룹화
+                        Collectors.averagingDouble(Player::getHeight)  // 평균 키 계산
+                ));
     }
 }
