@@ -128,11 +128,20 @@ public class PlayerService {
     }
 
     public void avgHeightPlayer() {
-        Map<String, Double> averageHeights = playRepository.avgHeightByCategory();
+        // 평균 연봉 계산과 같이 기존 select 사용
+        ArrayList<Player> playerList = playRepository.selectAllPlayers();
+
+        // 선수 리스트를 스트림으로 변환하기
+        Map<String, Double> averageHeights = playerList.stream()
+                .collect(Collectors.groupingBy(
+                        Player::getCategory,  // 종목별로 그루핑하기
+                        Collectors.averagingDouble(Player::getHeight)  // 평균 키 계산
+                ));
 
         averageHeights.forEach((category, avgHeight) ->
                 System.out.println("종목: " + category + ", 평균 키: " + avgHeight + "cm"));
     }
+
 
     public void lightWeightMZPlayer() {
         Player player = playRepository.findLightWeightMZPlayer();
