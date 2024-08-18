@@ -125,9 +125,6 @@ public class PlayerRepository {
 
     }
 
-    public List<Player> getAllPlayers() {
-        return new ArrayList<>(playerList); // 선수 목록 배열 List로
-    }
     public DoubleStream avgSalaryAllPlayer() {
         return playerList.stream()
                 .mapToDouble(Player::getSalary);
