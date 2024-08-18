@@ -148,10 +148,5 @@ public class PlayerRepository {
         return lightestPlayer;
     }
 
-    public List<String> selectAllNamePlayers() {
-        return playerList.stream()
-                .map(Player::getName) // 선수명 map으로 받기
-                .collect(Collectors.toList());
-    }
 }
 
