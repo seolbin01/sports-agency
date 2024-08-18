@@ -156,10 +156,12 @@ public class PlayerService {
     }
 
     public void findNamePlayer() {
-        List<String> namePlayers = playRepository.selectAllNamePlayers();
+        ArrayList<Player> playerList = playRepository.selectAllPlayers();
 
-        String nameList = namePlayers.stream()
-                .collect(Collectors.joining(", "));
+        //선수 이름만 추출하여 문자열로 변환
+        String nameList = playerList.stream()
+                .map(Player::getName) // 선수 이름 추출
+                .collect(Collectors.joining(", ")); // 쉼표로 구분된 문자열로 변환
 
         System.out.println("모든 선수 목록(이름) : " + nameList);
     }
