@@ -148,4 +148,8 @@ public class PlayerRepository {
                         )
                 ));
     }
+    public DoubleStream avgSalaryAllPlayer() {
+        return playerList.stream()
+                .mapToDouble(Player::getSalary);
+    }
 }
