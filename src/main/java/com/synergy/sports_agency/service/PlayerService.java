@@ -144,12 +144,27 @@ public class PlayerService {
 
 
     public void lightWeightMZPlayer() {
-        Player player = playRepository.findLightWeightMZPlayer();
+        List<Player> playerList = playRepository.selectAllPlayers();
 
-        if (player != null) {
+        // MZ 세대 필터링 해준다(20~40살로 기준잡기)
+        List<Player> mzPlayers = playerList.stream()
+                .filter(player -> player.getAge() >= 20 && player.getAge() <= 40) // MZ 세대 필터링
+                .collect(Collectors.toList());
+
+        // MZ 세대 선수가 없는 경우
+        if (mzPlayers.isEmpty()) {
+            System.out.println("MZ 세대 선수가 없습니다.");
+            return;
+        }
+
+        Player lightestPlayer = mzPlayers.stream()
+                .min(Comparator.comparingDouble(Player::getWeight)) // 몸무게 기준으로 최소값으로 찾는다
+                .orElse(null);
+
+        if (lightestPlayer != null) {
             System.out.println("몸무게가 가장 가벼운 MZ 세대 선수:");
-            System.out.println("이름: " + player.getName());
-            System.out.println("몸무게: " + player.getWeight() + "kg");
+            System.out.println("이름: " + lightestPlayer.getName());
+            System.out.println("몸무게: " + lightestPlayer.getWeight() + "kg");
         } else {
             System.out.println("MZ 세대 선수 정보가 없습니다.");
         }

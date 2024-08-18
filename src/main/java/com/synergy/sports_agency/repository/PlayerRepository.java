@@ -124,29 +124,5 @@ public class PlayerRepository {
         return 0;
 
     }
-
-    public Player findLightWeightMZPlayer() {
-        List<Player> mzPlayers = playerList.stream()
-                .filter(player -> player.getAge() >= 20 && player.getAge() <= 40) // MZ 세대를 20살 부터 40살까지
-                .collect(Collectors.toList());
-
-        if (mzPlayers.isEmpty()) {
-            return null; // MZ 세대 선수가 없을 경우 null 반환
-        }
-
-        // 몸무게가 가장 가벼운 선수 찾기
-        Player lightestPlayer = null;
-        double minWeight = Double.MAX_VALUE; // 초기값을 최대값으로 설정
-
-        for (Player player : mzPlayers) {
-            if (player.getWeight() < minWeight) {
-                minWeight = player.getWeight();
-                lightestPlayer = player;
-            }
-        }
-
-        return lightestPlayer;
-    }
-
 }
 
