@@ -216,4 +216,24 @@ public class PlayerService {
             return grades[ordinal];        // 이미 최소 등급이면 그대로 반환
         }
     }
+
+    public void limitSalaryYoungPlayer() {
+        ArrayList<Player> findPlayers = playRepository.selectAllPlayers();
+
+        Map<String, Integer> limitSalary = findPlayers.stream()
+                .filter(player -> player.getAge() < 20)
+                .collect(Collectors.toMap(
+                        Player::getName,
+                        player -> {
+                            if (player.getSalary() > 1000000) {
+                                player.setSalary(1000000);
+                            }
+                            return player.getSalary();
+                        }
+                ));
+
+        System.out.println("※ 미성년자 선수의 경우, 최대 백만원으로 연봉이 제한됩니다. ※");
+        limitSalary.forEach((playerName, salary) ->
+                System.out.println("선수 이름: " + playerName + ", 연봉: " + salary + "원"));
+    }
 }
