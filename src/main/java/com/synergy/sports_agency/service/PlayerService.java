@@ -90,7 +90,7 @@ public class PlayerService {
     }
 
     public Map<String, String> selectBestPlayers() {
-        List<Player> players = playRepository.getAllPlayers();
+        List<Player> players = playRepository.selectAllPlayers();
         // Player의 Grade를 ordinal 값으로 비교
         Comparator<Player> gradeComparator = Comparator.comparingInt(player -> player.getGrade().ordinal());
 
