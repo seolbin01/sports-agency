@@ -15,7 +15,7 @@ public class Application {
 
         while (true) {
             System.out.println();
-            System.out.println("===== 스포스 에이전시 =====");
+            System.out.println("===== 스포츠 에이전시 =====");
             System.out.println("1. 선수 관리");
             System.out.println("2. 연봉 관리");
             System.out.println("3. 건강 관리");
