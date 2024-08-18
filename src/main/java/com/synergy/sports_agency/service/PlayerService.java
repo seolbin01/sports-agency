@@ -39,7 +39,7 @@ public class PlayerService {
         int result = playRepository.insertPlayer(player);
 
         if (result == 1) {
-            System.out.println(player.getName() + "님 회원 가입이 완료 되었습니다.");
+            System.out.println(player.getName() + "님 선수 등록이 완료 되었습니다.");
             /* DBMS와의 연동을 할 경우 commit, rollback 등의 처리 */
         }
 
@@ -82,9 +82,9 @@ public class PlayerService {
         int result = playRepository.deletePlayer(no);
 
         if (result == 1) {
-            System.out.println("회원 탈퇴가 완료 되었습니다");
+            System.out.println("선수 방출이 완료 되었습니다");
         } else {
-            System.out.println("입력하신 회원 번호에 해당하는 회원이 없습니다");
+            System.out.println("입력하신 선수 번호에 해당하는 선수가 없습니다");
         }
 
     }

@@ -12,6 +12,34 @@ public class Application {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("===== 스포스 에이전시 =====");
+            System.out.println("1. 선수 관리");
+            System.out.println("2. 연봉 관리");
+            System.out.println("3. 건강 관리");
+            System.out.println("4. 통계 및 분석");
+            System.out.println("9. 프로그램 종료");
+            System.out.print("메뉴 선택 : ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1: managePlayer(); break;
+                case 2: manageSalary(); break;
+                case 3: manageEtc(); break;
+                case 4: statistics(); break;
+                case 9:
+                    System.out.println("선수 관리 프로그램을 종료합니다.");
+                    return;
+                default:
+                    System.out.println("번호를 잘못 입력했습니다.");
+            }
+        }
+    }
+
+    private static void managePlayer() {
+        Scanner sc = new Scanner(System.in);
+
         while (true) {
             System.out.println("===== 선수 관리 프로그램 =====");
             System.out.println("1. 모든 선수 정보 보기");
@@ -19,17 +47,8 @@ public class Application {
             System.out.println("3. 선수 등록");
             System.out.println("4. 선수 정보 수정");
             System.out.println("5. 선수 방출");
-            System.out.println("6. 종목별 최고(등급) 선수 찾기");
-            System.out.println("7. 모든 선수 평균 연봉 보기");
-            System.out.println("8. 종목별 평균 신장 보기");
-            System.out.println("9. MZ세대 선수 중 가장 가벼운 선수 찾기");
-            System.out.println("10. 모든 선수 목록(선수명)");
-            System.out.println("11. 내년 연봉 미리보기");
-            System.out.println("12. 특정 선수 BMI 체크 후 연봉 조정");
-            System.out.println("13. 부상 관리");
-            System.out.println("14. 미성년자 선수 연봉 제한");
-            System.out.println("15. 특정 년도에 따른 성인 선수 선별");
-            System.out.println("99. 프로그램 종료");
+            System.out.println("6. 특정 년도에 따른 성인 선수 선별");
+            System.out.println("9. 돌아가기");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
 
@@ -43,24 +62,91 @@ public class Application {
                     playerService.modifyPlayer(reform(selected));
                     break;
                 case 5: playerService.removePlayer(chooseNo()); break;
-                case 6: playerService.bestPlayer(); break;
-                case 7: playerService.avgSalaryPlayer(); break;
-                case 8: playerService.avgHeightPlayer(); break;
-                case 9: playerService.lightWeightMZPlayer(); break;
-                case 10: playerService.findNamePlayer(); break;
-                case 11: playerService.salaryOfNextYear(); break;
-                case 12: playerService.checkBMIAndChangeSalary(chooseNo()); break;
-                case 13: playerService.manageInjury(); break;
-                case 14: playerService.limitSalaryYoungPlayer(); break;
-                case 15: playerService.findAdultPlayerByYear(chooseYear()); break;
-                case 99:
-                    System.out.println("선수 관리 프로그램을 종료합니다.");
+                case 6: playerService.findAdultPlayerByYear(chooseYear()); break;
+                case 9:
+                    System.out.println("이전으로 돌아갑니다.");
                     return;
                 default:
                     System.out.println("번호를 잘못 입력했습니다.");
             }
         }
     }
+
+    private static void manageSalary() {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("===== 연봉 관리 프로그램 =====");
+            System.out.println("1. 모든 선수 평균 연봉 보기");
+            System.out.println("2. 내년 연봉 미리보기");
+            System.out.println("3. 특정 선수 BMI 체크 후 연봉 조정");
+            System.out.println("4. 미성년자 선수 연봉 제한 실행");
+            System.out.println("9. 돌아가기");
+            System.out.print("메뉴 선택 : ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1: playerService.avgSalaryPlayer(); break;
+                case 2: playerService.salaryOfNextYear(); break;
+                case 3: playerService.checkBMIAndChangeSalary(chooseNo()); break;
+                case 4: playerService.limitSalaryYoungPlayer(); break;
+                case 9:
+                    System.out.println("이전으로 돌아갑니다.");
+                    return;
+                default:
+                    System.out.println("번호를 잘못 입력했습니다.");
+            }
+        }
+    }
+
+    private static void manageEtc() {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("===== 건강 관리 프로그램 =====");
+            System.out.println("1. 부상 관리");
+            System.out.println("2. MZ세대 선수 중 가장 가벼운 선수 찾기");
+            System.out.println("9. 돌아가기");
+            System.out.print("메뉴 선택 : ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1: playerService.manageInjury(); break;
+                case 2: playerService.lightWeightMZPlayer(); break;
+                case 9:
+                    System.out.println("이전으로 돌아갑니다.");
+                    return;
+                default:
+                    System.out.println("번호를 잘못 입력했습니다.");
+            }
+        }
+    }
+
+    private static void statistics() {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("===== 통계 및 분석 프로그램 =====");
+            System.out.println("1. 종목별 최고 등급 선수");
+            System.out.println("2. 종목별 평균 신장");
+            System.out.println("3. 모든 선수 목록(선수명)");
+            System.out.println("9. 돌아가기");
+            System.out.print("메뉴 선택 : ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1: playerService.bestPlayer(); break;
+                case 2: playerService.avgHeightPlayer(); break;
+                case 3: playerService.findNamePlayer(); break;
+                case 9:
+                    System.out.println("이전으로 돌아갑니다.");
+                    return;
+                default:
+                    System.out.println("번호를 잘못 입력했습니다.");
+            }
+        }
+    }
+
     private static int chooseNo() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("선수 번호 입력 : ");
