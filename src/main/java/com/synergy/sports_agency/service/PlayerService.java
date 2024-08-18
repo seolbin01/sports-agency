@@ -5,6 +5,7 @@ import com.synergy.sports_agency.repository.PlayerRepository;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -116,5 +117,17 @@ public class PlayerService {
 
         averageHeights.forEach((category, avgHeight) ->
                 System.out.println("종목: " + category + ", 평균 키: " + avgHeight + "cm"));
+    }
+
+    public void lightWeightMZPlayer() {
+        Player player = playRepository.findLightWeightMZPlayer();
+
+        if (player != null) {
+            System.out.println("몸무게가 가장 가벼운 MZ 세대 선수:");
+            System.out.println("이름: " + player.getName());
+            System.out.println("몸무게: " + player.getWeight() + "kg");
+        } else {
+            System.out.println("MZ 세대 선수 정보가 없습니다.");
+        }
     }
 }
