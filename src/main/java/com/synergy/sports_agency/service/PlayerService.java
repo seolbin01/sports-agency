@@ -3,10 +3,7 @@ package com.synergy.sports_agency.service;
 import com.synergy.sports_agency.aggregate.Player;
 import com.synergy.sports_agency.repository.PlayerRepository;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -129,5 +126,14 @@ public class PlayerService {
         } else {
             System.out.println("MZ 세대 선수 정보가 없습니다.");
         }
+    }
+
+    public void findNamePlayer() {
+        List<String> namePlayers = playRepository.selectAllNamePlayers();
+
+        String nameList = namePlayers.stream()
+                .collect(Collectors.joining(", "));
+
+        System.out.println("모든 선수 목록(이름) : " + nameList);
     }
 }

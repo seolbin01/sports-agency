@@ -23,6 +23,7 @@ public class Application {
             System.out.println("7. 모든 선수 평균 연봉 보기");
             System.out.println("8. 종목별 평균 신장 보기");
             System.out.println("9. MZ세대 선수 중 가장 가벼운 선수 찾기");
+            System.out.println("10. 모든 선수 목록(선수명)");
             System.out.println("99. 프로그램 종료");
             System.out.print("메뉴 선택 : ");
             int choice = sc.nextInt();
@@ -41,6 +42,7 @@ public class Application {
                 case 7: playerService.avgSalaryPlayer(); break;
                 case 8: playerService.avgHeightPlayer(); break;
                 case 9: playerService.lightWeightMZPlayer(); break;
+                case 10: playerService.findNamePlayer(); break;
                 case 99:
                     System.out.println("선수 관리 프로그램을 종료합니다.");
                     return;
