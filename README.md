@@ -78,34 +78,113 @@
 </details>
 
 
-![선수 관리](./image/2.png)
-
 ### 2️⃣ 연봉 관리
-1. 모든 선수 평균 연봉 보기
-2. 내년 연봉 미리보기
-3. 특정 선수 BMI 체크 후 연봉 조정
-4. 미성년자 선수 연봉 제한 실행
 
-![연봉 관리](./image/3.png)
+<details>
+<summary>1. 모든 선수 평균 연봉 보기</summary>
+<div markdown="1">
+
+![2-1](./image/2-1.png)
+
+</div>
+</details>
+
+<details>
+<summary>2. 내년 연봉 미리보기</summary>
+<div markdown="1">
+
+![2-2](./image/2-2.png)
+
+</div>
+</details>
+
+<details>
+<summary>3. 특정 선수 BMI 체크 후 연봉 조정</summary>
+<div markdown="1">
+
+![2-3](./image/2-3.png)
+
+</div>
+</details>
+
+<details>
+<summary>4. 미성년자 선수 연봉 제한 실행</summary>
+<div markdown="1">
+
+![2-4](./image/2-4.png)
+
+</div>
+</details>
+
 
 ### 3️⃣ 건강 관리
-1. 사고 발생
-2. 부상 치료
-3. 부상 유무에 따른 선수 등급 조정
 
-![건강 관리](./image/4.png)
+<details>
+<summary>1. 사고 발생</summary>
+<div markdown="1">
+
+![3-1](./image/3-1.png)
+
+</div>
+</details>
+
+<details>
+<summary>2. 부상 치료</summary>
+<div markdown="1">
+
+![3-2](./image/3-2.png)
+
+</div>
+</details>
+
+<details>
+<summary>3. 부상 유무에 따른 선수 등급 조정</summary>
+<div markdown="1">
+
+![3-3](./image/3-3.png)
+
+</div>
+</details>
+
+
 
 ### 4️⃣ 통계 및 분석
-1. 종목별 최고 등급 선수
-2. 종목별 평균 신장
-3. MZ세대 선수 중 가장 가벼운 선수 찾기
-4. 모든 선수 목록(선수명)
 
-![통계 및 분석](./image/5.png)
+<details>
+<summary>1. 종목별 최고 등급 선수</summary>
+<div markdown="1">
 
----
-![메인메뉴](./image/1.png)
+![4-1](./image/4-1.png)
 
+</div>
+</details>
+
+<details>
+<summary>2. 종목별 평균 신장</summary>
+<div markdown="1">
+
+![4-2](./image/4-2.png)
+
+</div>
+</details>
+
+<details>
+<summary>3. MZ세대 선수 중 가장 가벼운 선수 찾기</summary>
+<div markdown="1">
+
+![4-3](./image/4-3.png)
+
+</div>
+</details>
+
+<details>
+<summary>4. 모든 선수 목록(선수명)</summary>
+<div markdown="1">
+
+![4-4](./image/4-4.png)
+
+</div>
+</details>
 
 
 ---
